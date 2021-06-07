@@ -8,7 +8,7 @@ The api sends JSON as response, containing the URL address to the video file in 
  
 ## How To Run:
   * Install [Node.js](https://nodejs.org/)
-  * Clone repository 
+  * Clone repository:
   ``` 
    git clone https://github.com/dean2400t/assignment1.git 
    ```
