@@ -6,10 +6,16 @@ const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
 const ffmpeg = require('fluent-ffmpeg');
 ffmpeg.setFfmpegPath(ffmpegPath);
 
+
+/*
+    Middleware receives image file path in req.screenShotPath.
+    Uses createTenSecVid function to create a 10 second video of the image.
+    Inserts vido file "url" address to req.videoFilePath
+*/
 module.exports=async (req,res,next)=>{
     try {
         const videoOutputPath='public/out.mp4';
-        await ffmpegSync(req.screenShotPath, videoOutputPath);
+        await createTenSecVid(req.screenShotPath, videoOutputPath);
         
         const serverAddress=req.get('host');
         req.videoFilePath=serverAddress+'/'+videoOutputPath;
@@ -20,7 +26,12 @@ module.exports=async (req,res,next)=>{
     }
  }
 
-function ffmpegSync(imageInputPath, videoOutputPath){
+/*
+    Function receives two strings containing image input path and video output path.
+    Makes a 10 second video of the image, and saves it to videoOutputPath.
+    Returns either promise solved or rejected. 
+*/
+function createTenSecVid(imageInputPath, videoOutputPath){
     return new Promise((resolve,reject)=>{
         
         try {
@@ -40,8 +51,8 @@ function ffmpegSync(imageInputPath, videoOutputPath){
                 reject(new Error(err))
                 })
             .run();
-        } catch (e) {
-            console.log(e);
+        } catch (err) {
+            reject(new Error(err))
         }
     })
  }

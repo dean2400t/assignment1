@@ -1,5 +1,11 @@
 //Using puppeteer so screen shots will work for none SSR websites as well
 const puppeteer = require('puppeteer');
+
+/*
+  Middleware receives "url" field in req.body.
+  Takes screenshot of page in url.
+  Insert screenshot path to req.screenShotPath
+*/
 module.exports=async (req,res,next)=>{
     const screenShotPath='screenShot.png'
 

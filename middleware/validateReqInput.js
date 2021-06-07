@@ -1,4 +1,9 @@
 
+/*
+  Middleware receives req.body.
+  Checks that body contains "url" field and no other fields.
+  Checks "url" is a valid URL.
+*/
 module.exports= (req, res, next)=>
 {
   const {url, ...rest}=req.body;
